@@ -7,21 +7,21 @@ exports.register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // 🔐 Basic validation
+    // Basic validation
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // 🔎 Check if user already exists
+    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "User already exists" });
     }
 
-    // 🔒 Hash password
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ✅ Create user
+    // Create user
     const user = await User.create({
       name,
       email,
@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
       role: role || "viewer"
     });
 
-    // 🚫 Never send password back
+    // Do not return password
     res.status(201).json({
       message: "User registered successfully",
       user: {
@@ -49,24 +49,26 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 🔐 Validation
+    // Validation
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password required" });
     }
 
     const user = await User.findOne({ email });
-    if (!user)
+    if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
+    if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
+    }
 
-    // 🔑 Create token
+    // Create token
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
     res.json({

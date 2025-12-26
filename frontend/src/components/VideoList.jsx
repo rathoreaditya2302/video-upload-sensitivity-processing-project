@@ -22,15 +22,14 @@ export default function VideoList({ refresh }) {
   useEffect(() => {
     const socket = io("http://localhost:5000");
 
-    socket.on("progress", ({ id, progress, status, sensitivity }) => {
+    socket.on("progress", ({ id, progress }) => {
       setVideos((prev) =>
         prev.map((v) =>
           v._id === id
             ? {
                 ...v,
                 progress,
-                status: status || v.status,
-                sensitivity: sensitivity || v.sensitivity
+                status: progress === 100 ? "processed" : "processing"
               }
             : v
         )
@@ -58,10 +57,7 @@ export default function VideoList({ refresh }) {
           ) : (
             <>
               <video width="300" controls>
-                <source
-                  src={`http://localhost:5000/api/videos/stream/${video.filename}`}
-                  type="video/mp4"
-                />
+                <source src={video.url} type="video/mp4" />
               </video>
               <div>Sensitivity: {video.sensitivity}</div>
             </>
