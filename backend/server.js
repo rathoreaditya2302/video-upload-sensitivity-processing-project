@@ -10,7 +10,6 @@ connectDB();
 const server = http.createServer(app);
 const io = initSocket(server);
 
-// Make socket available in controllers
 app.use((req, res, next) => {
   req.io = io;
   next();

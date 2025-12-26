@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Auth cards (Login & Register) */
+.auth-card {
+  background: #ffffff;
+  padding: 30px;
+  width: 350px;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-card input,
+.auth-card select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 10px;
+  background: #667eea;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.auth-card button:hover:not(:disabled) {
+  background: #5a67d8;
+}
+
+/* Auth toggle text */
+.auth-link {
+  text-align: center;
+  margin-top: 15px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.auth-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Dashboard container */
+.dashboard {
+  background: #ffffff;
+  min-width: 900px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Video card */
+.video-card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+}
+
